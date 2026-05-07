@@ -849,23 +849,56 @@
   </div>
 
 
-<button class="print-btn" onclick="printFit()">⬇ Exporter PDF</button>
+<button class="print-btn" id="pdf-btn" onclick="exportPDF()">⬇ Exporter PDF</button>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
-function printFit() {
+async function exportPDF() {
+  const btn = document.getElementById("pdf-btn");
+  btn.textContent = "⏳ Génération...";
+  btn.disabled = true;
+
   const page = document.querySelector(".page");
-  const A4_HEIGHT_PX = 1122;
-  const A4_WIDTH_PX = 794;
-  const contentH = page.scrollHeight;
-  const scale = Math.min(A4_HEIGHT_PX / contentH, 1);
-  const styleId = "print-scale-override";
-  const existing = document.getElementById(styleId);
-  if (existing) existing.remove();
-  const s = document.createElement("style");
-  s.id = styleId;
-  s.textContent = `@media print { .page { transform: scale(${scale}) !important; transform-origin: top left !important; width: ${Math.round(100/scale)}% !important; height: ${Math.round(100/scale)}vh !important; overflow: hidden !important; } }`;
-  document.head.appendChild(s);
-  window.print();
+
+  // Temporarily hide the button
+  btn.style.display = "none";
+
+  try {
+    const canvas = await html2canvas(page, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: "#05050f",
+      logging: false,
+      windowWidth: page.scrollWidth,
+      windowHeight: page.scrollHeight
+    });
+
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({
+      orientation: "portrait",
+      unit: "mm",
+      format: "a4"
+    });
+
+    const A4_W = 210;
+    const A4_H = 297;
+    const imgW = A4_W;
+    const imgH = (canvas.height * A4_W) / canvas.width;
+
+    // Scale down if taller than A4
+    const finalW = imgH > A4_H ? (A4_H * canvas.width) / canvas.height : imgW;
+    const finalH = imgH > A4_H ? A4_H : imgH;
+    const offsetX = (A4_W - finalW) / 2;
+    const offsetY = (A4_H - finalH) / 2;
+
+    pdf.addImage(canvas.toDataURL("image/png"), "PNG", offsetX, offsetY, finalW, finalH);
+    pdf.save("Paul_Chevasson_CV.pdf");
+  } finally {
+    btn.style.display = "";
+    btn.textContent = "⬇ Exporter PDF";
+    btn.disabled = false;
+  }
 }
 </script>
 </div>

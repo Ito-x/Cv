@@ -860,8 +860,6 @@ async function exportPDF() {
   btn.disabled = true;
 
   const page = document.querySelector(".page");
-
-  // Temporarily hide the button
   btn.style.display = "none";
 
   try {
@@ -871,29 +869,51 @@ async function exportPDF() {
       backgroundColor: "#05050f",
       logging: false,
       windowWidth: page.scrollWidth,
-      windowHeight: page.scrollHeight
+      windowHeight: page.scrollHeight,
+      onclone: (clonedDoc) => {
+        // Neutralise grille + scanlines (position: fixed) qui assombrissaient la capture
+        const s = clonedDoc.createElement('style');
+        s.textContent = `
+          body::before, body::after { display: none !important; content: none !important; }
+          body { background: #05050f !important; }
+        `;
+        clonedDoc.head.appendChild(s);
+
+        // Force la visibilité (animations fadeUp / fillBar)
+        clonedDoc.querySelectorAll('.section, .header, .skill-fill').forEach(el => {
+          el.style.opacity = "1";
+          el.style.visibility = "visible";
+          el.style.transform = "none";
+          el.style.animation = "none";
+        });
+
+        const cloneBtn = clonedDoc.getElementById("pdf-btn");
+        if (cloneBtn) cloneBtn.style.display = "none";
+      }
     });
 
     const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF({
-      orientation: "portrait",
-      unit: "mm",
-      format: "a4"
-    });
+    const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4", compress: true });
 
-    const A4_W = 210;
-    const A4_H = 297;
-    const imgW = A4_W;
-    const imgH = (canvas.height * A4_W) / canvas.width;
+    const A4_W = pdf.internal.pageSize.getWidth();   // 210
+    const A4_H = pdf.internal.pageSize.getHeight();  // 297
 
-    // Scale down if taller than A4
-    const finalW = imgH > A4_H ? (A4_H * canvas.width) / canvas.height : imgW;
-    const finalH = imgH > A4_H ? A4_H : imgH;
+    // Toujours tout sur UNE seule page A4 : on contient l'image en gardant le ratio
+    const naturalHmm = (canvas.height * A4_W) / canvas.width;
+    const scale = Math.min(1, A4_H / naturalHmm);
+    const finalW = A4_W * scale;
+    const finalH = naturalHmm * scale;
     const offsetX = (A4_W - finalW) / 2;
     const offsetY = (A4_H - finalH) / 2;
 
-    pdf.addImage(canvas.toDataURL("image/png"), "PNG", offsetX, offsetY, finalW, finalH);
+    pdf.setFillColor(5, 5, 15); // #05050f
+    pdf.rect(0, 0, A4_W, A4_H, "F");
+    pdf.addImage(canvas.toDataURL("image/png"), "PNG", offsetX, offsetY, finalW, finalH, undefined, "FAST");
+
     pdf.save("Paul_Chevasson_CV.pdf");
+  } catch (err) {
+    console.error(err);
+    alert("Erreur lors de l'export : " + err.message);
   } finally {
     btn.style.display = "";
     btn.textContent = "⬇ Exporter PDF";

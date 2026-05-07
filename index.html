@@ -522,13 +522,31 @@
     }
 
     @media print {
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+      html, body {
+        width: 210mm;
+        height: 297mm;
+        overflow: hidden;
+      }
       body::after { display: none; }
-      .print-btn { display: none; }
-      .section { opacity: 1 !important; transform: none !important; }
-      .skill-fill { transform: scaleX(1) !important; }
-      @page { size: A4; margin: 10mm; }
-      body { font-size: 12px; }
-      .page { padding: 0; }
+      body::before { display: none; }
+      .print-btn { display: none !important; }
+      .section { opacity: 1 !important; animation: none !important; }
+      .header { opacity: 1 !important; animation: none !important; }
+      .skill-fill { transform: scaleX(1) !important; animation: none !important; }
+      .page {
+        padding: 6mm 8mm;
+        width: 210mm;
+        max-width: 210mm;
+        transform-origin: top left;
+        transform: scale(0.88);
+        height: calc(297mm / 0.88);
+        overflow: hidden;
+        box-shadow: none;
+      }
     }
 
     .print-btn {
@@ -831,7 +849,25 @@
 
   <div class="footer">paul.chvssn@gmail.com &nbsp;·&nbsp; Talant &nbsp;·&nbsp; 2025</div>
 
-<button class="print-btn" onclick="window.print()">⬇ Exporter PDF</button>
+<button class="print-btn" onclick="printFit()">⬇ Exporter PDF</button>
+
+<script>
+function printFit() {
+  const page = document.querySelector(".page");
+  const A4_HEIGHT_PX = 1122;
+  const A4_WIDTH_PX = 794;
+  const contentH = page.scrollHeight;
+  const scale = Math.min(A4_HEIGHT_PX / contentH, 1);
+  const styleId = "print-scale-override";
+  const existing = document.getElementById(styleId);
+  if (existing) existing.remove();
+  const s = document.createElement("style");
+  s.id = styleId;
+  s.textContent = `@media print { .page { transform: scale(${scale}) !important; transform-origin: top left !important; width: ${Math.round(100/scale)}% !important; height: ${Math.round(100/scale)}vh !important; overflow: hidden !important; } }`;
+  document.head.appendChild(s);
+  window.print();
+}
+</script>
 </div>
 </body>
 </html>

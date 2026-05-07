@@ -80,6 +80,8 @@
       animation: fadeUp 0.7s ease forwards 0.1s;
     }
 
+    .name-block {}
+
     .tag-line {
       font-family: 'Share Tech Mono', monospace;
       font-size: 11px;
@@ -326,6 +328,8 @@
       margin-top: 2px;
     }
 
+    .edu-content {}
+
     .edu-title {
       font-weight: 700;
       font-size: 1rem;
@@ -448,6 +452,8 @@
       filter: drop-shadow(0 0 8px rgba(255,45,120,0.6));
     }
 
+    .karate-info {}
+
     .karate-title {
       font-family: 'Orbitron', monospace;
       font-size: 0.78rem;
@@ -515,6 +521,34 @@
       text-transform: uppercase;
     }
 
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+      html, body {
+        width: 210mm;
+        height: 297mm;
+        overflow: hidden;
+      }
+      body::after { display: none; }
+      body::before { display: none; }
+      .print-btn { display: none !important; }
+      .section { opacity: 1 !important; animation: none !important; }
+      .header { opacity: 1 !important; animation: none !important; }
+      .skill-fill { transform: scaleX(1) !important; animation: none !important; }
+      .page {
+        padding: 6mm 8mm;
+        width: 210mm;
+        max-width: 210mm;
+        transform-origin: top left;
+        transform: scale(0.88);
+        height: calc(297mm / 0.88);
+        overflow: hidden;
+        box-shadow: none;
+      }
+    }
+
     .print-btn {
       position: fixed;
       bottom: 28px;
@@ -572,12 +606,16 @@
         <span class="icon">✉</span>
         <span>paul.chvssn@gmail.com</span>
       </div>
+
     </div>
   </header>
 
   <div class="layout">
+
     <!-- MAIN COLUMN -->
     <main>
+
+      <!-- PROFIL -->
       <section class="section">
         <div class="section-title">Profil</div>
         <p class="profil-text">
@@ -585,15 +623,17 @@
         </p>
       </section>
 
+      <!-- PROJETS -->
       <section class="section">
         <div class="section-title">Projets &amp; Réalisations</div>
+
         <div class="project">
           <div class="project-header">
             <div class="project-name">PI-THON</div>
             <div class="badge badge-nsi">Trophées NSI 2025</div>
           </div>
           <div class="project-desc">
-            Application de calcul de décimales de π atteignant <strong style="color:#fff">300 millions de décimales</strong>. Intègre une dizaine d'algorithmes différents, une vulgarisation mathématique de chaque méthode et des visualisations graphiques interactives.
+            Application de calcul de décimales de π atteignant <strong style="color:#fff">300 millions de décimales</strong>. Intègre une dizaine d'algorithmes différents, une vulgarisation mathématique de chaque méthode et des visualisations graphiques interactives du fonctionnement de chaque approche.
           </div>
           <div class="project-tags">
             <span class="tag">Python</span>
@@ -610,7 +650,7 @@
             <div class="badge badge-wip">Hackathon 6h</div>
           </div>
           <div class="project-desc">
-            Création d'un jeu complet en 6 heures à partir du module <em>Pyxel</em>. Meilleur jeu de l'établissement. Exercice de rapidité et d'organisation.
+            Création d'un jeu complet en 6 heures à partir du module <em>Pyxel</em>. Meilleur jeu de l'établissement. Exercice de rapidité, d'organisation et de créativité sous contrainte de temps.
           </div>
           <div class="project-tags">
             <span class="tag">Python</span>
@@ -625,7 +665,7 @@
             <div class="badge badge-wip">Web</div>
           </div>
           <div class="project-desc">
-            Jeu web multijoueur de type agar.io : collecter des épées et monter en puissance face aux autres joueurs.
+            Jeu web multijoueur de type agar.io : collecter des épées et monter en puissance face aux autres joueurs. Développé en équipe et hébergé sur GitHub.
           </div>
           <div class="project-tags">
             <span class="tag">JavaScript</span>
@@ -633,185 +673,234 @@
             <span class="tag">Game Design</span>
           </div>
         </div>
+
+        <div class="project">
+          <div class="project-header">
+            <div class="project-name">METROIDVANIA (en cours)</div>
+            <div class="badge badge-wip">En développement</div>
+          </div>
+          <div class="project-desc">
+            Développement d'un jeu de type metroidvania avec deux amis. Premier projet de jeu entièrement autoporté.
+          </div>
+          <div class="project-tags">
+            <span class="tag">Travail d'équipe</span>
+            <span class="tag">Game Design</span>
+            <span class="tag">En cours</span>
+          </div>
+        </div>
       </section>
 
+      <!-- FORMATION -->
       <section class="section">
         <div class="section-title">Formation</div>
         <div class="edu-item">
           <div class="edu-year">2022 → 2025</div>
           <div class="edu-content">
             <div class="edu-title">Baccalauréat Général</div>
-            <div class="edu-sub">Spécialités : Mathématiques · NSI<br>Lycée Notre-Dame, Dijon</div>
+            <div class="edu-sub">Spécialités : Mathématiques · NSI (Numérique &amp; Sciences Informatiques)<br>Lycée Notre-Dame, Dijon</div>
           </div>
         </div>
         <div class="edu-item">
           <div class="edu-year">Karaté</div>
           <div class="edu-content">
             <div class="edu-title">AFA</div>
-            <div class="edu-sub">Attestation Fédérale d'Animateur · encadrement des cours</div>
+            <div class="edu-sub">Attestation Fédérale d'Animateur · habilite à encadrer et assister les cours de karaté</div>
           </div>
         </div>
       </section>
-
       <section class="section">
         <div class="section-title">Distinctions &amp; Concours</div>
+
         <div class="concours-item">
           <div class="concours-dot cyan-dot"></div>
           <div class="concours-text">
             <strong>Passe ton Hack d'Abord 2026</strong> · Challenge CTF national cybersécurité<br>
-            <div class="concours-result" style="color:var(--cyan)">🛡️ Score parfait (22/22 challenges) · Badge certifié "Explorateur cybersécurité"</div>
+            <div class="concours-result" style="color:var(--cyan)">🛡️ Score parfait (22/22 challenges) · Badge certifié "Explorateur cybersécurité" · ComCyber / Éducation nationale</div>
           </div>
         </div>
+
         <div class="concours-item">
           <div class="concours-dot"></div>
           <div class="concours-text">
-            <strong>Code de la Nuit 2025</strong><br>
+            <strong>Passe ton Hack d'Abord 2025</strong> · Challenge CTF national cybersécurité<br>
+            <span style="font-size:0.82rem;color:var(--text-dim)">Première participation</span>
+          </div>
+        </div>
+
+        <div class="concours-item">
+          <div class="concours-dot"></div>
+          <div class="concours-text">
+            <strong>Code de la Nuit 2025</strong> · Hackathon jeu vidéo 6h<br>
             <div class="concours-result">Meilleur jeu de l'établissement</div>
           </div>
         </div>
+
+        <div class="concours-item">
+          <div class="concours-dot cyan-dot"></div>
+          <div class="concours-text">
+            <strong>Trophées NSI 2025</strong> · Concours national d'informatique<br>
+            <span style="font-size:0.82rem;color:var(--text-dim)">Projet Pi-thon : calcul &amp; visualisation de π</span>
+          </div>
+        </div>
+
+        <div class="concours-item">
+          <div class="concours-dot"></div>
+          <div class="concours-text">
+            <strong>Concours de nouvelles en latin</strong><br>
+            <span style="font-size:0.82rem;color:var(--text-dim)">Thème : le mythe de Cassandre · Résultats en attente</span><br>
+            <span style="font-size:0.82rem;color:var(--text-dim)">Latin pratiqué de la 3ème à la Terminale</span>
+          </div>
+        </div>
       </section>
+
     </main>
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
+
+      <!-- KARATE -->
       <section class="section">
         <div class="section-title">Sport</div>
         <div class="karate-card">
           <div class="karate-icon">🥋</div>
           <div class="karate-info">
             <div class="karate-title">1er DAN · CEINTURE NOIRE</div>
-            <div class="karate-sub">Karaté · 7 ans de pratique</div>
+            <div class="karate-sub">Karaté · 7 ans de pratique · 1er Dan obtenu le 24/06/2022</div>
           </div>
         </div>
+        <div class="interests-grid" style="margin-top:8px">
+          <span class="interest-chip">⛳ Golf</span>
+          <span class="interest-chip">🏋️ Musculation</span>
+        </div>
       </section>
 
+      <!-- COMPÉTENCES -->
       <section class="section">
         <div class="section-title">Compétences</div>
+
         <div class="skill-item">
           <div class="skill-label"><span>Python</span><span>À l'aise</span></div>
-          <div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:60%;animation-delay:0.6s"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-label"><span>IA / Prompt</span><span>À l'aise</span></div>
-          <div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div>
+          <div class="skill-label"><span>Prompt Engineering / IA</span><span>À l'aise</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:60%;animation-delay:0.7s"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label"><span>GitHub</span><span>Bases</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:35%;animation-delay:0.75s"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label"><span>Canva</span><span>Bases</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:30%;animation-delay:0.8s"></div></div>
         </div>
       </section>
 
+      <!-- LANGUES -->
       <section class="section">
         <div class="section-title">Langues</div>
-        <div class="lang-item"><span class="lang-name">🇫🇷 Français</span><span class="lang-level">Natif</span></div>
-        <div class="lang-item"><span class="lang-name">🇬🇧 Anglais</span><span class="lang-level">B1–B2</span></div>
-        <div class="lang-item"><span class="lang-name">🇯🇵 Japonais</span><span class="lang-level">Auto</span></div>
-      </section>
 
-      <section class="section">
-        <div class="section-title">Intérêts</div>
-        <div class="interests-grid">
-          <span class="interest-chip">🎮 Jeux vidéo</span>
-          <span class="interest-chip">✍️ Poésie</span>
-          <span class="interest-chip">💡 Création</span>
+        <div class="lang-item">
+          <span class="lang-name">🇫🇷 Français</span>
+          <span class="lang-level">Natif</span>
+        </div>
+        <div class="lang-item">
+          <span class="lang-name">🇬🇧 Anglais</span>
+          <span class="lang-level">B1–B2</span>
+        </div>
+        <div class="lang-item">
+          <span class="lang-name">🇪🇸 Espagnol</span>
+          <span class="lang-level">LV2</span>
+        </div>
+        <div class="lang-item">
+          <span class="lang-name">🇯🇵 Japonais</span>
+          <span class="lang-level">Autodidacte</span>
         </div>
       </section>
+
+      <!-- INTÉRÊTS -->
+      <section class="section">
+        <div class="section-title">Centres d'intérêt</div>
+        <div class="interests-grid">
+          <span class="interest-chip">🎮 Jeux vidéo</span>
+          <span class="interest-chip">✍️ Poésie (amateur)</span>
+          <span class="interest-chip">🎵 Musique</span>
+          <span class="interest-chip">💡 Création</span>
+          <span class="interest-chip">💻 Informatique</span>
+          <span class="interest-chip">🤝 Amis</span>
+          <span class="interest-chip">🎹 Piano (bientôt)</span>
+        </div>
+      </section>
+
+      <!-- SOFT SKILLS -->
+      <section class="section">
+        <div class="section-title">Soft Skills</div>
+        <div class="interests-grid">
+          <span class="interest-chip">Créativité</span>
+          <span class="interest-chip">Curiosité</span>
+          <span class="interest-chip">Travail d'équipe</span>
+          <span class="interest-chip">Persévérance</span>
+          <span class="interest-chip">À l'écoute</span>
+          <span class="interest-chip">Empathique</span>
+        </div>
+      </section>
+
     </aside>
   </div>
 
-  <button class="print-btn" id="pdf-btn" onclick="exportPDF()">⬇ Exporter PDF</button>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script>
-    async function exportPDF() {
-      const btn = document.getElementById("pdf-btn");
-      const originalText = btn.textContent;
-      btn.textContent = "⏳ Génération...";
-      btn.disabled = true;
+<button class="print-btn" id="pdf-btn" onclick="exportPDF()">⬇ Exporter PDF</button>
 
-      const page = document.querySelector(".page");
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+async function exportPDF() {
+  const btn = document.getElementById("pdf-btn");
+  btn.textContent = "⏳ Génération...";
+  btn.disabled = true;
 
-      try {
-        const { jsPDF } = window.jspdf;
-        const canvas = await html2canvas(page, {
-          scale: 2,
-          useCORS: true,
-          backgroundColor: "#05050f",
-          logging: false,
-          windowWidth: page.scrollWidth,
-          windowHeight: page.scrollHeight,
-          onclone: (clonedDoc) => {
-            // Neutraliser les overlays fixed (grille + scanlines) qui assombrissent la capture
-            const killOverlays = clonedDoc.createElement('style');
-            killOverlays.textContent = `
-              body::before, body::after { display: none !important; content: none !important; }
-              body { background: #05050f !important; }
-            `;
-            clonedDoc.head.appendChild(killOverlays);
+  const page = document.querySelector(".page");
 
-            // Forcer la visibilité des éléments animés
-            const animateEls = clonedDoc.querySelectorAll('.section, .header, .skill-fill');
-            animateEls.forEach(el => {
-              el.style.opacity = "1";
-              el.style.visibility = "visible";
-              el.style.transform = "none";
-              el.style.animation = "none";
-            });
+  // Temporarily hide the button
+  btn.style.display = "none";
 
-            // Masquer le bouton dans le PDF
-            const cloneBtn = clonedDoc.getElementById("pdf-btn");
-            if (cloneBtn) cloneBtn.style.display = "none";
-          }
-        });
+  try {
+    const canvas = await html2canvas(page, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: "#05050f",
+      logging: false,
+      windowWidth: page.scrollWidth,
+      windowHeight: page.scrollHeight
+    });
 
-        const imgData = canvas.toDataURL("image/png");
-        const pdf = new jsPDF({
-          orientation: "portrait",
-          unit: "mm",
-          format: "a4",
-          compress: true
-        });
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({
+      orientation: "portrait",
+      unit: "mm",
+      format: "a4"
+    });
 
-        const pdfW = pdf.internal.pageSize.getWidth();   // 210 mm
-        const pdfH = pdf.internal.pageSize.getHeight();  // 297 mm
+    const A4_W = 210;
+    const A4_H = 297;
+    const imgW = A4_W;
+    const imgH = (canvas.height * A4_W) / canvas.width;
 
-        // Convertir le canvas (px) en mm en se basant sur la largeur du PDF
-        const imgWmm = pdfW;
-        const imgHmm = (canvas.height * pdfW) / canvas.width;
+    // Scale down if taller than A4
+    const finalW = imgH > A4_H ? (A4_H * canvas.width) / canvas.height : imgW;
+    const finalH = imgH > A4_H ? A4_H : imgH;
+    const offsetX = (A4_W - finalW) / 2;
+    const offsetY = (A4_H - finalH) / 2;
 
-        // Helper : peindre le fond sombre sur toute la page courante
-        const paintBg = () => {
-          pdf.setFillColor(5, 5, 15); // #05050f
-          pdf.rect(0, 0, pdfW, pdfH, "F");
-        };
-
-        if (imgHmm <= pdfH) {
-          // Tient sur une seule page A4
-          paintBg();
-          pdf.addImage(imgData, "PNG", 0, 0, imgWmm, imgHmm, undefined, "FAST");
-        } else {
-          // Multi-pages : on décale verticalement l'image et on ajoute des pages
-          let heightLeft = imgHmm;
-          let position = 0;
-          paintBg();
-          pdf.addImage(imgData, "PNG", 0, position, imgWmm, imgHmm, undefined, "FAST");
-          heightLeft -= pdfH;
-          while (heightLeft > 0) {
-            position -= pdfH;
-            pdf.addPage();
-            paintBg();
-            pdf.addImage(imgData, "PNG", 0, position, imgWmm, imgHmm, undefined, "FAST");
-            heightLeft -= pdfH;
-          }
-        }
-
-        pdf.save("Paul_Chevasson_CV.pdf");
-      } catch (err) {
-        console.error(err);
-        alert("Erreur lors de l'export : " + err.message);
-      } finally {
-        btn.textContent = originalText;
-        btn.disabled = false;
-      }
-    }
-  </script>
+    pdf.addImage(canvas.toDataURL("image/png"), "PNG", offsetX, offsetY, finalW, finalH);
+    pdf.save("Paul_Chevasson_CV.pdf");
+  } finally {
+    btn.style.display = "";
+    btn.textContent = "⬇ Exporter PDF";
+    btn.disabled = false;
+  }
+}
+</script>
 </div>
 </body>
 </html>
